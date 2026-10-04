@@ -1,6 +1,8 @@
+#include "player.h"
 #include "sign.h"
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class Board {
@@ -48,33 +50,15 @@ public:
     }
 };
 
-class Player {
-public:
-    Sign sign;
-
-    Player(Sign s) { sign = s; }
-
-    bool make_play(int x, int y, Board &board) { return board.set(x, y, sign); }
-};
-
-void move(Board &board) {
-    string input;
-    while (true) {
-        cout << "enter move: x,y" << '\n';
-        cin >> input;
-        if (input.size() == 3 && input[1] == ',' &&
-            board.set(input[0] - '0', input[2] - '0', Sign::O)) {
-            return;
-        }
-        cout << "invalid move, try again" << '\n';
-    }
-}
-
 int main() {
     auto board = Board();
+    HumanPlayer human(Sign::O);
     while (!board.game_won()) {
         board.print();
-        move(board);
+        Move m = human.choose_move(board);
+        if (!board.set(m.row, m.col, human.sign)) {
+            cout << "invalid move, try again" << '\n';
+        }
     }
     board.print();
     cout << "game won" << '\n';
