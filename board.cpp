@@ -19,6 +19,7 @@ void Board::print() {
         cout << "  ";
         cout << '\n';
     }
+    cout << '\n';
 }
 
 bool Board::line_won(Sign a, Sign b, Sign c) {

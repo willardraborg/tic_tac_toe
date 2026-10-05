@@ -13,4 +13,5 @@ public:
     bool check_col(int i);
     bool check_diagonals();
     bool game_won();
+    Sign get(int x, int y) const { return board[x][y]; }
 };
